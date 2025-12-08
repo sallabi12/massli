@@ -1,22 +1,18 @@
 <template>
-  <div class="page">
+  <div :class="['page', { dark: isDark }]">
+    <button class="theme-toggle" type="button" @click="toggleTheme" :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
+      <span class="sr-only">Toggle color mode</span>
+      <span class="theme-icon" aria-hidden="true">{{ isDark ? '☀️' : '🌑' }}</span>
+    </button>
     <NavBar />
     <main class="layout">
       <section class="hero" id="solutions">
-        <div class="badge">🚀 Website Coming Soon</div>
-        <p class="eyebrow">MAASLI</p>
         <h1>AI-Powered Systems for Operational Analytics</h1>
-        <p class="lede">
-          We build custom AI and machine learning solutions that track your operations—production lines,
-          quality control, employee performance, customer flow, and more. Every system is built for you,
-          designed around what you actually need to track and improve.
-        </p>
         <div class="hero-cta">
           <button class="primary"><a
             href="https://wa.me/905441054000"
             target="_blank"
             rel="noopener">Book a call</a></button>
-          <button class="ghost">Request a Quote</button>
         </div>
         <div class="metrics">
           <div>
@@ -36,9 +32,9 @@
 
       <section class="panel two-column" id="about">
         <div class="panel-head">
-          <h2>What Is Maasli</h2>
+          <h2>What Is Maasli ?</h2>
           <p>We build custom AI and machine learning solutions that track your operations.</p>
-          <p>Production lines, quality control, employee performance, customer flow—we measure whatever
+          <p>Production lines, quality control, employee performance, customer flow we measure whatever
             matters to your business. Every system is built specifically for you, designed around what you
             actually need to track and improve.</p>
         </div>
@@ -54,7 +50,6 @@
             <li>Packaging speed and accuracy</li>
             <li>Service times in retail or food service</li>
             <li>Crowd distribution in entertainment venues</li>
-            <li>Safety compliance and protocol adherence</li>
           </ul>
         </div>
       </section>
@@ -70,7 +65,7 @@
           </article>
           <article class="card">
             <h3>Custom-built</h3>
-            <p>Designed for your facility and your specific needs—not generic software.</p>
+            <p>Designed for your facility and your specific needs not generic software.</p>
           </article>
           <article class="card">
             <h3>Real-time dashboards</h3>
@@ -90,8 +85,8 @@
       <section class="panel contact" id="contact">
         <div>
           <h2>Contact Maasli</h2>
-          <p>Email <a class="link" href="mailto:info@maasli.com">info@maasli.com</a></p>
-          <p>Phone 0544 105 40 00</p>
+          <p>Email <a class="link contact-strong" href="mailto:info@maasli.com">info@maasli.com</a></p>
+          <p>Phone <span class="contact-strong">0544 105 40 00</span></p>
         </div>
         <div class="contact-actions">
           <button class="primary">Talk with Maasli</button>
@@ -113,10 +108,16 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import NavBar from './components/nav.vue'
+
+const isDark = ref(false)
+const toggleTheme = () => {
+  isDark.value = !isDark.value
+}
 </script>
 
-<style scoped>
+<style >
   button a{
     color: white;
     text-decoration: none;
@@ -130,6 +131,48 @@ import NavBar from './components/nav.vue'
     radial-gradient(circle at 15% 15%, rgba(6, 167, 125, 0.08), transparent 26%),
     radial-gradient(circle at 80% 0%, rgba(34, 34, 34, 0.05), transparent 20%),
     linear-gradient(135deg, #ffffff 0%, #f1f3f6 45%, #ffffff 100%);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 20;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #d8dfe9;
+  background: linear-gradient(135deg, #f7f9fc, #e4ebf5);
+  color: #0f172a;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(34, 34, 34, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-icon {
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(34, 34, 34, 0.18);
+  background: linear-gradient(135deg, #eef2f8, #dce5f1);
 }
 
 .layout {
@@ -181,6 +224,7 @@ h1 {
   line-height: 1.1;
   letter-spacing: -0.5px;
   font-family: 'League Spartan', 'Montserrat', sans-serif;
+  font-weight: 400;
 }
 
 .lede {
@@ -229,9 +273,32 @@ h1 {
 
 .metrics {
   margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.metrics > div {
+  min-width: 150px;
+  padding: 14px 16px;
+  border: 1px solid #06a77d;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #e8f8f2 0%, #d9f2e8 50%, #e8f8f2 100%);
+  background-size: 200% 200%;
+  animation: metricGlow 8s ease-in-out infinite;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(6, 167, 125, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.metrics > div:hover {
+  border-color: #d8dfe9;
+  background: #ffffff;
+  background-size: initial;
+  animation: none;
+  transform: translateY(0);
+  box-shadow: 0 10px 24px rgba(6, 167, 125, 0.08);
 }
 
 .metric-value {
@@ -252,14 +319,15 @@ h1 {
 }
 
 .panel-head {
-  display: grid;
-  gap: 6px;
+  display: flex;
+  flex-direction:column;
   margin-bottom: 18px;
 }
 
 .panel h2 {
   font-size: 1.6rem;
   letter-spacing: -0.2px;
+  font-weight: 750;
 }
 
 .panel p {
@@ -268,8 +336,8 @@ h1 {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 18px 16px;
 }
 
 .card {
@@ -291,6 +359,7 @@ h1 {
 .card h3 {
   margin-bottom: 6px;
   font-size: 1.2rem;
+  font-weight: 750;
 }
 
 .card:hover {
@@ -316,10 +385,23 @@ h1 {
 }
 
 .list-title {
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #06a77d;
+  font-weight: 800;
+}
+
+@keyframes metricGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .bullets {
@@ -411,10 +493,103 @@ h1 {
   font-weight: 900;
 }
 
+.contact-strong {
+  font-weight: 800;
+}
+
+.page.dark {
+  color: #e5eaf2;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(74, 222, 128, 0.08), transparent 26%),
+    radial-gradient(circle at 80% 0%, rgba(148, 163, 184, 0.08), transparent 22%),
+    linear-gradient(135deg, #0b1220 0%, #0d1626 45%, #0b1220 100%);
+  background-size: 280px 280px, 240px 240px, 160% 160%;
+  background-position: 20% 18%, 70% 5%, 0% 50%;
+  animation: pageGradientMove 20s ease-in-out infinite;
+}
+
+.page.dark .theme-toggle {
+  background: linear-gradient(135deg, #0e9f7a, #0b8a68);
+  border: 1px solid #0f7056;
+  color: #0a1813;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+}
+
+.page.dark .badge {
+  background: rgba(15, 184, 117, 0.12);
+  color: #7be0b0;
+  border: 1px solid rgba(6, 167, 125, 0.4);
+}
+
+.page.dark .eyebrow {
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  color: #7be0b0;
+}
+
+.page.dark h1,
+.page.dark h2,
+.page.dark h3,
+.page.dark .lede {
+  color: #e5eaf2;
+}
+
+.page.dark .lede,
+.page.dark .panel p,
+.page.dark .metric-label {
+  color: #cbd5e1;
+}
+
+.page.dark .panel {
+  background: linear-gradient(145deg, #0c1422, #0a101a);
+  border: 1px solid #1f2a3a;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.page.dark .card {
+  background: linear-gradient(145deg, #0f1a2a, #0c1421);
+  border: 1px solid #1f2a3a;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.page.dark .card:hover {
+  border-color: #06a77d;
+  background: linear-gradient(145deg, #0f201a, #0b1712);
+  box-shadow: 0 18px 44px rgba(6, 167, 125, 0.3);
+}
+
+.page.dark .metrics > div {
+  border: 1px solid #1f2937;
+  background: linear-gradient(135deg, #0f1d2a 0%, #0b1520 50%, #0f1d2a 100%);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+}
+
+.page.dark .metrics > div:hover {
+  border-color: #223043;
+  background: #111827;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.32);
+}
+
+.page.dark .link {
+  color: #5eead4;
+}
+
+.page.dark .footer {
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.page.dark .bullets {
+  color: #f5f6fa;
+}
+
 @media (max-width: 640px) {
   .hero h1 {
     font-size: 2.1rem;
     line-height: 1.08;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -427,6 +602,22 @@ h1 {
 @media (max-width: 900px) {
   .two-column {
     grid-template-columns: 1fr;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes pageGradientMove {
+  0% {
+    background-position: 20% 18%, 70% 5%, 0% 50%;
+  }
+  50% {
+    background-position: 20% 18%, 70% 5%, 100% 50%;
+  }
+  100% {
+    background-position: 20% 18%, 70% 5%, 0% 50%;
   }
 }
 </style>
