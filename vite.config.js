@@ -9,7 +9,7 @@ export default defineConfig({
   base:'/massli/',
   plugins: [
     vue(),
-    vueDevTools(),],,
+    vueDevTools(),],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
