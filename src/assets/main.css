@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@600;700&family=League+Spartan:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap');
+@import './base.css';
+
+body {
+  background: linear-gradient(135deg, #f7f8fa, #eceff3);
+  color: #222222;
+  font-family:
+    'League Spartan',
+    'Montserrat',
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+#app {
+  font-weight: 500;
+}
