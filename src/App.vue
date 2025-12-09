@@ -77,7 +77,7 @@
           </article>
           <article class="card">
             <h3>Ongoing support</h3>
-            <p>Continuous improvements, retraining,and responsive support from our team.</p>
+            <p>Continuous improvements, retraining, and responsive support from our team.</p>
           </article>
         </div>
       </section>
