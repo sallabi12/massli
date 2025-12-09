@@ -111,7 +111,7 @@
 import { ref } from 'vue'
 import NavBar from './components/nav.vue'
 
-const isDark = ref(false)
+const isDark = ref(true)
 const toggleTheme = () => {
   isDark.value = !isDark.value
 }
